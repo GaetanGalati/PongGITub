@@ -9,8 +9,8 @@
 int main(int argc, char* argv[])
 {
 
-    int Inputplayer1 =200;
-    int Inputplayer2 =200;
+    int Inputplayer1 =250;
+    int Inputplayer2 =250;
     int *pInputplayer1 = &Inputplayer1;
     int *pInputplayer2 = &Inputplayer2;
 
@@ -18,18 +18,32 @@ int main(int argc, char* argv[])
     game mygame;
     font mFont;
 
+
     if(init("PING",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,SCREEN_WIDTH,SCREEN_HEIGHT,SDL_WINDOW_SHOWN,&mygame,&mFont)){
         state.g_bRunning=1;
     }else{
         return 1;
     }
 
+
+
     while(state.g_bRunning){
         handleEvents(&state,&Inputplayer1,&Inputplayer2);
 
-       printf("%d\n",Inputplayer1);
+        SDL_Rect ligne;
+        ligne.x = 400;
+        ligne.y = 0;
+        ligne.w = 5;
+        ligne.h = 800;
+
+        SDL_SetRenderDrawColor(mygame.g_pRenderer, 255, 255, 255, 255);
+        SDL_RenderDrawRect(mygame.g_pRenderer, &ligne);
+        SDL_RenderFillRect(mygame.g_pRenderer, &ligne);
+        SDL_SetRenderDrawColor(mygame.g_pRenderer, 0, 0, 0, 255);
+
+
         SDL_Rect rectPlayeur1;
-        rectPlayeur1.x = 0;
+        rectPlayeur1.x = 750;
         rectPlayeur1.y = Inputplayer1;
         rectPlayeur1.w = 50;
         rectPlayeur1.h = 100;
@@ -38,12 +52,11 @@ int main(int argc, char* argv[])
         SDL_RenderDrawRect(mygame.g_pRenderer, &rectPlayeur1);
         SDL_RenderFillRect(mygame.g_pRenderer, &rectPlayeur1);
         SDL_SetRenderDrawColor(mygame.g_pRenderer, 0, 0, 0, 255);
-        SDL_RenderPresent(mygame.g_pRenderer);
-        SDL_RenderPresent(mygame.g_pRenderer);
+
 
         SDL_Rect rectPlayeur2;
-        rectPlayeur2.x = 590;
-        rectPlayeur2.y = Inputplayer2;
+        rectPlayeur2.x = 0;
+        rectPlayeur2.y = 250;
         rectPlayeur2.w = 50;
         rectPlayeur2.h = 100;
 
@@ -51,6 +64,8 @@ int main(int argc, char* argv[])
         SDL_RenderDrawRect(mygame.g_pRenderer, &rectPlayeur2);
         SDL_RenderFillRect(mygame.g_pRenderer, &rectPlayeur2);
         SDL_SetRenderDrawColor(mygame.g_pRenderer, 0, 0, 0, 255);
+        SDL_RenderPresent(mygame.g_pRenderer);
+        SDL_RenderPresent(mygame.g_pRenderer);
         if (Inputplayer1 <= 0){
             Inputplayer1=0;
             }
@@ -63,9 +78,6 @@ int main(int argc, char* argv[])
         if (Inputplayer2 >= 400){
             Inputplayer2=400;
             }
-        SDL_RenderClear(mygame.g_pRenderer);
-        SDL_RenderPresent(mygame.g_pRenderer);
-
         }
 
 
@@ -152,7 +164,6 @@ void handleEvents(gameState *state, int *Inputplayer1, int *Inputplayer2){
 
 
 
-}
 
 
 
