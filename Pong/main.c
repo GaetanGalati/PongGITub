@@ -11,6 +11,9 @@ int main(int argc, char* argv[])
 
     int Inputplayer1 =200;
     int Inputplayer2 =200;
+    int *pInputplayer1 = &Inputplayer1;
+    int *pInputplayer2 = &Inputplayer2;
+
     gameState state;
     game mygame;
     font mFont;
@@ -21,16 +24,13 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    mygame.g_pRenderer = SDL_CreateRenderer(mygame.g_pWindow, -1, SDL_RENDERER_ACCELERATED);
-    SDL_SetRenderDrawColor(mygame.g_pRenderer, 0, 0, 0, 255);
-
     while(state.g_bRunning){
         handleEvents(&state,&Inputplayer1,&Inputplayer2);
-        SDL_RenderClear(mygame.g_pRenderer);
-       // printf("%d\n",Inputplayer1);
+
+       printf("%d\n",Inputplayer1);
         SDL_Rect rectPlayeur1;
         rectPlayeur1.x = 0;
-        rectPlayeur1.y = 200;
+        rectPlayeur1.y = Inputplayer1;
         rectPlayeur1.w = 50;
         rectPlayeur1.h = 100;
 
@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
 
         SDL_Rect rectPlayeur2;
         rectPlayeur2.x = 590;
-        rectPlayeur2.y = 200;
+        rectPlayeur2.y = Inputplayer2;
         rectPlayeur2.w = 50;
         rectPlayeur2.h = 100;
 
@@ -63,7 +63,7 @@ int main(int argc, char* argv[])
         if (Inputplayer2 >= 400){
             Inputplayer2=400;
             }
-
+        SDL_RenderClear(mygame.g_pRenderer);
         SDL_RenderPresent(mygame.g_pRenderer);
 
         }
@@ -87,10 +87,11 @@ int init(char *title, int xpos,int ypos,int height, int width,int flags,game *my
     if(SDL_Init(SDL_INIT_EVERYTHING)>=0)
     {
             myGame->g_pWindow=SDL_CreateWindow(title,xpos,ypos,height,width,flags);
-            printf("Window created");
+
             if(myGame->g_pWindow!=NULL){
                 myGame->g_pRenderer=SDL_CreateRenderer(myGame->g_pWindow,-1,SDL_RENDERER_ACCELERATED);
-
+                SDL_SetRenderDrawColor(myGame->g_pRenderer, 0, 0, 0, 255);
+                printf("Window created");
             }
 
     }else{
@@ -147,6 +148,10 @@ void handleEvents(gameState *state, int *Inputplayer1, int *Inputplayer2){
         default:break;
         }
     }
+}
+
+
+
 }
 
 
