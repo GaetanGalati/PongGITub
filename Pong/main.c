@@ -14,6 +14,9 @@ int main(int argc, char* argv[])
     int *pInputplayer1 = &Inputplayer1;
     int *pInputplayer2 = &Inputplayer2;
 
+    SDL_Rect rectPlayeur1;
+
+
     gameState state;
     game mygame;
     font mFont;
@@ -28,7 +31,7 @@ int main(int argc, char* argv[])
 
 
     while(state.g_bRunning){
-        handleEvents(&state,&Inputplayer1,&Inputplayer2);
+        handleEvents(&state,&Inputplayer1,&Inputplayer1);
 
         SDL_Rect ligne;
         ligne.x = 400;
@@ -42,7 +45,7 @@ int main(int argc, char* argv[])
         SDL_SetRenderDrawColor(mygame.g_pRenderer, 0, 0, 0, 255);
 
 
-        SDL_Rect rectPlayeur1;
+
         rectPlayeur1.x = 750;
         rectPlayeur1.y = Inputplayer1;
         rectPlayeur1.w = 50;
@@ -56,7 +59,7 @@ int main(int argc, char* argv[])
 
         SDL_Rect rectPlayeur2;
         rectPlayeur2.x = 0;
-        rectPlayeur2.y = 250;
+        rectPlayeur2.y = Inputplayer2;
         rectPlayeur2.w = 50;
         rectPlayeur2.h = 100;
 
@@ -161,8 +164,6 @@ void handleEvents(gameState *state, int *Inputplayer1, int *Inputplayer2){
         }
     }
 }
-
-
 
 
 
